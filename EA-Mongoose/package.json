@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "start": "npm run build && node dist/main.js",
     "example:simple": "npm run build && node dist/examples/01-simple.js",
     "example:promises": "npm run build && node dist/examples/02-promises.js",
     "example:async": "npm run build && node dist/examples/03-async-await.js",
