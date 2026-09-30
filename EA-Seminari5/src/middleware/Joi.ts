@@ -164,6 +164,17 @@ export const Schemas = {
 
             // El precio no puede ser negativo
             price: Joi.number().min(0)
+        }),
+
+        // Esquema para añadir un tag a un libro
+        addTag: Joi.object<{ tag: string }>({
+            // El tag tiene que ser uno de los permitidos
+            tag: Joi.string().valid(...BOOK_TAGS).required().example('fantasia')
+        }),
+
+        // Esquema para reemplazar la lista entera de tags de un libro
+        setTags: Joi.object<{ tags: string[] }>({
+            tags: Joi.array().items(Joi.string().valid(...BOOK_TAGS)).required().example(['novela', 'historia'])
         })
     }
 };
