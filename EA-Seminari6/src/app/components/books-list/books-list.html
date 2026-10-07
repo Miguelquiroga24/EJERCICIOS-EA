@@ -7,7 +7,7 @@
   <input
     class="search"
     type="search"
-    placeholder="Buscar por título, ISBN o descripción"
+    placeholder="Buscar por título, ISBN, descripción o editorial"
     aria-label="Buscar libros"
     [(ngModel)]="search"
     (ngModelChange)="page.set(1)"
@@ -30,6 +30,7 @@
           <th>Título</th>
           <th>Descripción</th>
           <th>Autores</th>
+          <th>Editorial</th>
           <th>Idioma</th>
           <th>Año</th>
           <th>Precio</th>
@@ -66,6 +67,13 @@
                 <span class="muted">Sin autores</span>
               }
             </td>
+            <td [title]="book.publisher || ''">
+              @if (book.publisher) {
+                {{ book.publisher }}
+              } @else {
+                <span class="muted">—</span>
+              }
+            </td>
             <td>{{ book.language | languageName }}</td>
             <td>{{ book.publishedYear }}</td>
             <td>{{ book.price | currency: 'EUR' }}</td>
@@ -84,7 +92,7 @@
           </tr>
         } @empty {
           <tr>
-            <td class="empty" colspan="9">
+            <td class="empty" colspan="10">
               @if (search()) {
                 No hay resultados para "{{ search() }}"
               } @else {
