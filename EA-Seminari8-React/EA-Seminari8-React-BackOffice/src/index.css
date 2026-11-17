@@ -463,3 +463,14 @@ label.checkbox {
   font-size: 0.9rem;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
+
+/* Estrella de favoritos: amarilla cuando el libro está marcado */
+button.favourite {
+  padding: 0.35rem 0.6rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+button.favourite[aria-pressed='true'] {
+  color: #e0a100;
+}
