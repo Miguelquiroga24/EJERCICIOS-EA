@@ -20,6 +20,7 @@ type BookFormValues = {
   title: string;
   isbn: string;
   authors: string[];
+  publisher: string;
   description: string;
   publishedYear: string;
   pages: string;
@@ -32,6 +33,7 @@ const INITIAL_VALUES: BookFormValues = {
   title: '',
   isbn: '',
   authors: [],
+  publisher: '',
   description: '',
   publishedYear: '',
   pages: '',
@@ -98,6 +100,7 @@ export function BookForm() {
           isbn: book.isbn,
           // La API manda los autores enteros (populate), pero el select trabaja con sus ids
           authors: book.authors.map((author) => author._id),
+          publisher: book.publisher ?? '',
           description: book.description ?? '',
           publishedYear: book.publishedYear?.toString() ?? '',
           pages: book.pages?.toString() ?? '',
@@ -202,6 +205,10 @@ export function BookForm() {
                 </option>
               ))}
             </select>
+          </Field>
+
+          <Field label="Editorial">
+            <input type="text" name="publisher" value={form.values.publisher} onChange={form.handleChange} />
           </Field>
 
           <Field label="Descripción">
