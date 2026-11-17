@@ -17,11 +17,12 @@ import { ViewToggle } from './ViewToggle';
 // Libros que se ven en cada página de la tabla
 const PAGE_SIZE = 4;
 
-// Me quedo con los libros cuyo título, ISBN o descripción contiene lo que se ha escrito
+// Me quedo con los libros cuyo título, ISBN, editorial o descripción contiene lo que se ha escrito
 function matchesBook(book: Book, text: string) {
   return (
     book.title.toLowerCase().includes(text) ||
     book.isbn.toLowerCase().includes(text) ||
+    (book.publisher?.toLowerCase().includes(text) ?? false) ||
     (book.description?.toLowerCase().includes(text) ?? false)
   );
 }
@@ -82,7 +83,7 @@ export function BooksList() {
           ref={searchRef}
           className="search"
           type="search"
-          placeholder="Buscar por título, ISBN o descripción"
+          placeholder="Buscar por título, ISBN, editorial o descripción"
           aria-label="Buscar libros"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -102,6 +103,7 @@ export function BooksList() {
                 <tr>
                   <th></th>
                   <th>Título</th>
+                  <th>Editorial</th>
                   <th>Descripción</th>
                   <th>Autores</th>
                   <th>Idioma</th>
@@ -122,6 +124,7 @@ export function BooksList() {
                       />
                     </td>
                     <td>{book.title}</td>
+                    <td>{book.publisher ?? <span className="muted">—</span>}</td>
                     <td title={book.description ?? ''}>
                       {book.description ? truncate(book.description, 70) : <span className="muted">—</span>}
                     </td>
@@ -149,7 +152,7 @@ export function BooksList() {
                 ))}
                 {pageItems.length === 0 && (
                   <tr>
-                    <td className="empty" colSpan={9}>
+                    <td className="empty" colSpan={10}>
                       {emptyText}
                     </td>
                   </tr>
